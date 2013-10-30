@@ -1,0 +1,43 @@
+#!/usr/bin/env ruby
+
+require 'ec2manage'
+require 'thor'
+
+class CLI < Thor
+  desc "exec HOUR", "HOURの時刻に行うべき処理を実行する."
+  long_desc <<-LONGDESC
+    HOURの時刻に行うべき処理を実行する.
+
+    実行日の曜日とHOUR, EC2インスタンスのTagsを元に判定を行い,
+    インスタンスのStart/Stopを実行する.
+  LONGDESC
+  def exec(hour)
+    Ec2manage.exec(hour)
+  end
+
+  desc "dry_run HOUR", "execを空実行する."
+  long_desc <<-LONGDESC
+    使い方はexecと同様だが, ログ出力のみでStart/Stopは行わない.
+  LONGDESC
+  def dry_run(hour)
+    Ec2manage.dry_run(hour)
+  end
+
+  desc "start", "start tagged instances. [unimplemented]"
+  def start
+    Ec2manage.start
+  end
+
+  desc "stop", "stop tagged instances. [unimplemented]"
+  def stop
+    Ec2manage.stop
+  end
+
+  desc "volume_cleanup", "volume cleanup. [unimplemented]"
+  def volume_cleanup
+    Ec2manage.volume_cleanup
+  end
+end
+
+CLI.start(ARGV)
+
