@@ -60,10 +60,28 @@ module Ec2manage
       run(today, hour, on_start, on_stop, on_no_action, on_error)
     end
 
+    def volume_cleanup
+      volumes.each do |volume|
+        case volume.status
+        when :available
+          log :INFO, "delete volume '#{volume.id}'"
+          volume.delete
+        else
+          log :INFO, "pass '#{volume.id}'"
+        end
+      end
+    end
+
     private
+    def instances
+      @ec2.instances.lazy.map{|i| Instance.new(i)}
+    end
+
+    def volumes
+      @ec2.volumes.lazy
+    end
+
     def run(today, hour, on_start, on_stop, on_no_action, on_error)
-      instances = @ec2.instances.lazy.map{|i| Instance.new(i)}
-      
       instances.each do |instance|
         unless instance.good?
           on_error[instance]
@@ -95,6 +113,6 @@ module Ec2manage
     puts "unimplemented"
   end
   def volume_cleanup
-    puts "unimplemented"
+    App.new.volume_cleanup
   end
 end
