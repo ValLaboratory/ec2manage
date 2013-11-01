@@ -65,6 +65,10 @@ module Ec2manage
       @ec2.instances.lazy.map{|i| Instance.new(i)}
     end
 
+    def volumes
+      @ec2.volumes.lazy
+    end
+
     def run(today, hour, on_start, on_stop, on_no_action, on_error)
       instances.each do |instance|
         unless instance.good?
