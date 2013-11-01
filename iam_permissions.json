@@ -9,7 +9,11 @@
         "ec2:DescribeInstances",
         "ec2:MonitorInstances",
         "ec2:StartInstances",
-        "ec2:StopInstances"
+        "ec2:StopInstances",
+        "ec2:DescribeVolumeAttribute",
+        "ec2:DescribeVolumeStatus",
+        "ec2:DescribeVolumes",
+        "ec2:DeleteVolume"
       ],
       "Resource": [
         "*"
