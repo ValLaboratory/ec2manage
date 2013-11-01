@@ -1,7 +1,10 @@
 # Ec2manage
 
-EC2インスタンスの自動起動・停止スクリプト.
+EC2インスタンスの管理スクリプト.
 
+### ec2manage exec
+
+EC2インスタンスの自動起動・停止.
 EC2インスタンスに下記のTagを付けると、時間に応じてStart/Stopを実行する.
 
 - Tag "running_period"
@@ -21,13 +24,13 @@ EC2インスタンスに下記のTagを付けると、時間に応じてStart/St
     - 平日のみ起動.
     - 実行日が月-金の場合のみ"running_period"の設定に応じてStart/Stopを実行する.
 
-ec2manageは下記の環境変数を利用する.
+`ec2manage exec`は下記の環境変数を利用する.
 
 - ACCESS_KEY_ID
 - SECRET_ACCESS_KEY
 - http_proxy (option)
 
-また、ec2manageを実行するには下記の権限が必要となる.
+また、`ec2manage exec`を実行するには下記の権限が必要となる.
 
 - ec2:DescribeTags
 - ec2:DescribeInstanceAttribute
@@ -36,6 +39,24 @@ ec2manageは下記の環境変数を利用する.
 - ec2:MonitorInstances
 - ec2:StartInstances
 - ec2:StopInstances 
+
+### ec2manage volume_cleanup
+
+EBSボリュームの自動削除.
+実行すると`available`状態のEBSボリュームを削除する.
+
+`ec2manage volume_cleanup`は下記の環境変数を利用する.
+
+- ACCESS_KEY_ID
+- SECRET_ACCESS_KEY
+- http_proxy (option)
+
+また、`ec2manage volume_cleanup`を実行するには下記の権限が必要となる.
+
+- ec2:DescribeVolumeAttribute
+- ec2:DescribeVolumeStatus
+- ec2:DescribeVolumes
+- ec2:DeleteVolume
 
 ## Installation
 

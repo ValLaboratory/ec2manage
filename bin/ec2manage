@@ -4,9 +4,9 @@ require 'ec2manage'
 require 'thor'
 
 class CLI < Thor
-  desc "exec HOUR", "HOURの時刻に行うべき処理を実行する."
+  desc "exec HOUR", "HOURの時刻に行うべきStart/Stop処理を実行する."
   long_desc <<-LONGDESC
-    HOURの時刻に行うべき処理を実行する.
+    HOURの時刻に行うべきStart/Stop処理を実行する.
 
     実行日の曜日とHOUR, EC2インスタンスのTagsを元に判定を行い,
     インスタンスのStart/Stopを実行する.
@@ -33,7 +33,12 @@ class CLI < Thor
     Ec2manage.stop
   end
 
-  desc "volume_cleanup", "volume cleanup. [unimplemented]"
+  desc "volume_cleanup", "不要なEBSボリュームを削除する."
+  long_desc <<-LONGDESC
+    不要なEBSボリュームを削除する.
+
+    実行すると`available`状態のEBSボリュームを削除する.
+  LONGDESC
   def volume_cleanup
     Ec2manage.volume_cleanup
   end
