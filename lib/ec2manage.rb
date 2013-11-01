@@ -61,9 +61,11 @@ module Ec2manage
     end
 
     private
+    def instances
+      @ec2.instances.lazy.map{|i| Instance.new(i)}
+    end
+
     def run(today, hour, on_start, on_stop, on_no_action, on_error)
-      instances = @ec2.instances.lazy.map{|i| Instance.new(i)}
-      
       instances.each do |instance|
         unless instance.good?
           on_error[instance]
